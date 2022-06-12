@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microstream.entity.Bookstore;
+import com.microstream.exceptions.BookstoreNotFoundException;
 import com.microstream.serviceImpl.BookstoreCRUDServiceImpl;
 
 @RestController
@@ -64,7 +65,7 @@ public class BookstoreController {
 	}
 
 	@PutMapping("/updateBookStoreName")
-	public Bookstore updateBookStoreName(Long id, String newName) throws Exception  {
+	public Bookstore updateBookStoreName(Long id, String newName) throws Exception   {
 		return bookstoreCRUDServiceImpl.updateBookStoreName(id, newName);
 	}
 

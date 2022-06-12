@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.microstream.entity.Bookstore;
+import com.microstream.exceptions.BookstoreNotFoundRuntimeException;
 import com.microstream.model.FullName;
 import com.microstream.model.MicroStream;
 import com.microstream.service.MicrostreamService;

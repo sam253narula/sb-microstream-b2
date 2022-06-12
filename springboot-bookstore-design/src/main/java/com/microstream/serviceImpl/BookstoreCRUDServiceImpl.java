@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.microstream.entity.Bookstore;
+import com.microstream.exceptions.BookstoreNotFoundException;
+import com.microstream.exceptions.BookstoreNotFoundRuntimeException;
 import com.microstream.repository.BookstoreRepository;
 
 @Service
@@ -39,7 +41,7 @@ public class BookstoreCRUDServiceImpl {
 			throw new RuntimeException("There is no Bookstore with id: " + id);
 		}
 	}
-	
+
 	public List<Bookstore> getBookStoreWhichHasParticularBooks(String books) {
 		Bookstore bookstoreWithTheseBooks = Bookstore.builder().books(books).build();
 		ExampleMatcher exampleMatcher = ExampleMatcher.matching()
@@ -67,17 +69,17 @@ public class BookstoreCRUDServiceImpl {
 	}
 
 	@Transactional
-	public Bookstore updateBookStoreName(Long id, String newName) throws Exception  {
+	public Bookstore updateBookStoreName(Long id, String newName) throws Exception {
 		boolean existsById = bookstoreRepository.existsById(id);
 		if (existsById) {
 			Bookstore bookstore = bookstoreRepository.getById(id);
 			bookstore.setName(newName);
 			return bookstoreRepository.saveAndFlush(bookstore);
 		} else {
-			//throw new RuntimeException("There is no Bookstore with the provided id: " + id);
+			// throw new RuntimeException("There is no Bookstore with the provided id: " + id);
 			throw new Exception("There is no Bookstore with the provided id: " + id);
-			//throw new BookstoreNotFoundException("There is no Bookstore with the provided id: " + id);
-			//throw new BookstoreNotFoundRuntimeException("There is no Bookstore with the provided id: " + id);
+			// throw new BookstoreNotFoundException("There is no Bookstore with the provided id: " + id);
+			// throw new BookstoreNotFoundRuntimeException("There is no Bookstore with the provided id: " + id);
 		}
 	}
 
@@ -87,7 +89,8 @@ public class BookstoreCRUDServiceImpl {
 			bookstoreRepository.deleteById(id);
 			return "Deleted";
 		} else {
-			throw new RuntimeException("There is no bookstore with the provided Id: " + id);
+			//throw new RuntimeException("There is no bookstore with the provided Id: " + id);
+			throw new BookstoreNotFoundRuntimeException("Non-Existing Bookstore with the provided id: " + id);
 		}
 	}
 
